@@ -64,4 +64,8 @@ class UserPresenter < BasePresenter
     user.is_a?(NullUser) ? '#' : url_helpers.user_path(user)
   end
 
+  def can_create_newsletter?
+    ::AgileVentures::NEWSLETTER_EMISSIONER.include?(user.email)
+  end
+
 end
