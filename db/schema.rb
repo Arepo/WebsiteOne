@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140917070939) do
+ActiveRecord::Schema.define(version: 20141002084933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,13 @@ ActiveRecord::Schema.define(version: 20140917070939) do
   add_index "follows", ["followable_id", "followable_type"], name: "fk_followables", using: :btree
   add_index "follows", ["follower_id", "follower_type"], name: "fk_follows", using: :btree
 
+  create_table "newsletters", force: true do |t|
+    t.string   "title",      null: false
+    t.text     "body",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "projects", force: true do |t|
     t.string   "title"
     t.text     "description"
@@ -155,6 +162,13 @@ ActiveRecord::Schema.define(version: 20140917070939) do
   end
 
   add_index "static_pages", ["slug"], name: "index_static_pages_on_slug", unique: true, using: :btree
+
+  create_table "statuses", force: true do |t|
+    t.text     "status"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
