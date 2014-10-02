@@ -28,6 +28,18 @@ class ApplicationController < ActionController::Base
     request.env['omniauth.origin'] || session[:previous_url] || root_path
   end
 
+  # see lib/agile_ventures.rb for privileged user
+  #
+  def check_privileged
+    raise AgileVentures::AccessDenied.new(current_user, request) unless current_user.is_privileged?
+  end
+
+
+  rescue_from AgileVentures::AccessDenied do |exception|
+    render :file => "#{Rails.root}/public/403.html", :status => 403, :layout => false
+  end
+
+
   private
 
   def request_path_blacklisted?

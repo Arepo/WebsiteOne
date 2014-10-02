@@ -65,7 +65,7 @@ class UserPresenter < BasePresenter
   end
 
   def can_create_newsletter?
-    ::AgileVentures::NEWSLETTER_EMISSIONER.include?(user.email)
+    ::AgileVentures::PRIVILEGED.include?(user.email)
   end
 
 end

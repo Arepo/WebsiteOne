@@ -88,4 +88,8 @@ class User < ActiveRecord::Base
     github_url = "https://github.com/#{username}"
     find_by(github_profile_url: github_url)
   end
+
+  def is_privileged?
+    ::AgileVentures::PRIVILEGED.include?(email)
+  end
 end
